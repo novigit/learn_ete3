@@ -134,9 +134,46 @@ print(t)
 D = t&"D"
 print(D)
 
+# store parent nodes of D in 'paths'
 node = D
 path = []
 while node.up:
     path.append(node)
     node = node.up
 print(path)
+
+# Substract D node from the total number of visited nodes
+# .up method goes all the way until the root node
+print("There are", len(path)-1, "nodes between D and the root")
+
+# Find specific nodes relative to a node of interest
+Dsparent = (t&"D").up
+Bsparent = (t&"B").up
+Jsparent = (t&"J").up
+print(Dsparent)
+#    /-F
+# --|
+#    \-D
+print(Bsparent)
+#    /-B
+# --|
+#   |   /-C
+#    \-|
+#      |   /-J
+#       \-|
+#         |   /-F
+#          \-|
+#             \-D
+print(Jsparent)
+#    /-J
+# --|
+#   |   /-F
+#    \-|
+#       \-D
+# Remember that any TreeNode represents itself and all of its children
+# or in ETE3 terms, any tree can be represented by its root node
+
+# You can check whether one node is inside a tree of another node
+# nodeA in nodeB returns True or False
+print("It is", Dsparent in Bsparent, "that D's parent is under B's parent")
+print("It is", Dsparent in Jsparent, "that D's parent is under J's parent")
