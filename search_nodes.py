@@ -16,7 +16,7 @@ print(t) # remember that print() does not print branch lengths, only topology
 #          \-D
 
 # search for node 'D'
-# remember that .search_nodes returns a list! hence the [0] to get the first item on the list
+# remember that .search_nodes() returns a list! hence the [0] to get the first item on the list
 D = t.search_nodes(name="D")[0]
 print(D)
 
