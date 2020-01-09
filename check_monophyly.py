@@ -72,4 +72,46 @@ colors = {
 # the for loop below adds a color to a leaf, leaf by leaf
 for leaf in t:
     leaf.add_features(color=colors.get(leaf.name, "none"))
+# just printing t doesnt show the features
+print(t)
+# requires the .get_ascii() method
 print(t.get_ascii(attributes=["name", "color"], show_internal=False))
+#                   /-4, green
+#                /-|
+#             /-|   \-e, green
+#            |  |
+#          /-|   \-i, yellow
+#         |  |
+#       /-|   \-o, black
+#      |  |
+#    /-|   \-h, none
+#   |  |
+#   |   \-u, purple
+# --|
+#   |      /-3, yellow
+#   |   /-|
+#   |  |   \-4, green
+#    \-|
+#      |   /-i, yellow
+#       \-|
+#          \-june, yellow
+
+# find nodes that are monophyletic for containing either green or yellow
+print("Green-yellow clusters:")
+for node in t.get_monophyletic(values=["green","yellow"], target_attr="color"): 
+    print(node.get_ascii(attributes=["color","name"], show_internal=False))
+# Green-yellow clusters:
+
+#       /-green, 4
+#    /-|
+# --|   \-green, e
+#   |
+#    \-yellow, i
+
+#       /-yellow, 3
+#    /-|
+#   |   \-green, 4
+# --|
+#   |   /-yellow, i
+#    \-|
+#       \-yellow, june
