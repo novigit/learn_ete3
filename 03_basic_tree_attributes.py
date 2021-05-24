@@ -1,6 +1,8 @@
 #!/usr/bin/env python
+
 from ete3 import Tree
-import pdb
+
+
 # Create a random tree object with random topology t
 # the t tree object is represented by its root node
 # t is an object of the Tree or TreeNode class
@@ -42,7 +44,7 @@ print(t)
 # print list of children nodes (2 children of the root node)
 # ? actually a list of hash references?
 print(t.children)
-pdb.set_trace()
+
 # prints subtree associated with the first child node
 print(t.children[0])
 # prints subtree associated with the second child node

@@ -25,7 +25,7 @@ print(t)
 #          \-S
 
 # .traverse returns an 'iterator' (a list? an iterable object?) of the tree nodes in postorder
-# postorder: traverse left subtree from leave to top, traverse right subtree from leave to top, visit the root
+# 'postorder': traverse left subtree from leave to top, traverse right subtree from leave to top, visit the root
 for node in t.traverse("postorder"):
     print(node.name)
 # H
@@ -47,6 +47,10 @@ for node in t.traverse("postorder"):
 # M
 # C
 # 
+
+# other traversal options:
+# 'preorder' - visit the root, then left tree nodes, then right tree nodes
+# 'levelorder' - default. every node is visited on a given level before dropping down one level
 
 # traverse over the tree in postorder, but skip the root node
 # the difference in output is one less empty line (this line represents the root node that did not have a name)
@@ -84,3 +88,4 @@ while node:
     print(node)
     # node.up returns a pointer to the parent node
     node = node.up
+
