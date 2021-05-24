@@ -4,7 +4,7 @@ from ete3 import Tree
 # Loads a tree with internal node names
 t = Tree("(A:1,(B:1,(E:1,D:1)Internal_1:0.5)Internal_2:0.5)Root;", format=1)
 
-# And prints its newick using the default format
+# .write() prints the tree in Newick format
 print(t.write())
 # (A:1.000000,(B:1.000000,(E:1.000000,D:1.000000)1.000000:0.500000)1.000000:0.500000);
 

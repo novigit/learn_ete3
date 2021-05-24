@@ -31,8 +31,12 @@ print(t.check_monophyly(values=["a","e","i","o"], target_attr="name"))
 
 # these vowels are paraphyletic (a specific case of polyphyly)
 print(t.check_monophyly(values=["i", "o"], target_attr="name"))
+# (False, 'paraphyletic', {Tree node 'e' (0x117646a2), Tree node 'a' (0x1176469b)})
+
 
 ## .get_monophyletic
+## returns a list of nodes that are monophyletic in a certain trait
+## trait is usually defined as an attribute of the tree node
 t =  Tree("((((((4, e), i), o),h), u), ((3, 4), (i, june)));")
 print(t)
 #                   /-4

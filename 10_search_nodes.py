@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from ete3 import Tree
 
-t = Tree( "((H:3,I:1):0.5, A:1, (B:1,(C:1,D:1):0.5):0.5);", format=0)
+t = Tree( '((H:1,I:1):0.5, A:1, (B:1,(C:1,D:1):0.5):0.5);' )
 print(t) # remember that print() does not print branch lengths, only topology
 #       /-H
 #    /-|
@@ -37,7 +37,9 @@ def search_by_size(node,size):
     # create an empty list
     matches = []
 
-    # fill list with nodes that fullfill the criteria of having <size> number of leaves
+    # fill list with nodes that fullfill the criteria of 
+    # having <size> number of leaves
+    # len(node) returns number of daughter leaves for node
     for n in node.traverse():
         if len(n) == size:
             print("Found one!")
@@ -75,10 +77,12 @@ print(t)
 #             \-|
 #                \-D
 lca = t.get_common_ancestor("C","J","B")
-# remember that lca is a TreeNode object, so printing it returns the entire subtree
+# remember that lca is a TreeNode object, 
+# so printing it returns the entire subtree
 print(lca)
 
-## another way to search for particular nodes is to combine the python filter() function with the .traverse method:
+## another way to search for particular nodes is 
+## to combine the python filter() function with the .traverse method:
 t = Tree("((H:0.3,I:0.1):0.5, A:1, (B:0.4,(C:1,D:1):0.5):0.5);")
 
 # print branch lengths
@@ -103,7 +107,8 @@ def is_long_branch(node):
     else:
         return False
 
-# filter() applies a True/False function to all elements in a specified iterable object,
+# filter() applies a True/False function to all elements 
+# in a specified iterable object,
 # and returns only the True items in a 'filter object', which is an iterator
 matches = filter(is_long_branch, t.traverse())
 
@@ -111,9 +116,9 @@ matches = filter(is_long_branch, t.traverse())
 # you can do this apparently with the list() function
 print(len(list(matches)), "nodes have branches with length > 0.3")
 
-## Finding TreeNode objects by their name is so common that ETE3 implements a shortcut: TreeNODE&NodeName
+## Finding TreeNode objects by their name is so common that 
+# ETE3 implements a shortcut: TreeNODE&NodeName
 t = Tree("((H:0.3,I:0.1):0.5, A:1, (B:0.4,(C:1,(J:1, (F:1, D:1):0.5):0.5):0.5):0.5);")
-# returns the first TreeNode whose name is "D"
 print(t)
 #       /-H
 #    /-|
@@ -131,6 +136,7 @@ print(t)
 #             \-|
 #                \-D
 
+# returns the first TreeNode whose name is "D"
 D = t&"D"
 print(D)
 

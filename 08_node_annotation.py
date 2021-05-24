@@ -10,6 +10,15 @@ from ete3 import Tree
 # it is possible to add additional data to the node
 # this is called tree or node annotation
 
+# NOTE:
+# Traditional Newick format does not support adding extra features to a tree
+# You need to use PhyloXML (completely new) or NHX format (extension on Newick)
+# NHX = New Hampshire eXtended format
+# NHX is automatically detected by ETE3
+
+# ETE3 allows you to read a plain Newick tree, add features and then
+# export as NHX tree
+
 # example
 t = Tree( '((H:0.3,I:0.1):0.5, A:1, (B:0.4,(C:0.5,(J:1.3, (F:1.2, D:0.1):0.5):0.5):0.5):0.5);' )
 print(t)
@@ -55,6 +64,7 @@ ancestor.add_features(nodetype="internal")
 # print(C.vowel)
 # print(C.confidence)
 # print(C.blergh)
+
 # Automate adding custom features to nodes
 import random
 for leaf in t.traverse():
@@ -94,12 +104,14 @@ print(matches)
 # confirming by looking at the tree
 #ancestor.show()
 
-# add matched nodes as information to ancestor node as a new attribute feature ("long_branch_nodes")
+# add matched leaf nodes as information to ancestor node 
+# as a new attribute feature ("long_branch_nodes")
 # make sure to use .add_feature(), not .add_features()!!
 ancestor.add_feature("long_branch_nodes", matches)
 
 # now check em
-print("These are nodes under ancestor with long branches", [n.name for n in ancestor.long_branch_nodes])
+print("These are leaf nodes under ancestor with long branches", \
+    [n.name for n in ancestor.long_branch_nodes])
 # note that ancestor.long_branch_nodes returns a list of nodes
 
 # we can also use the add_feature() method to dynamically add new features
