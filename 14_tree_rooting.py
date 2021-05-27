@@ -54,3 +54,74 @@ print(t)
 #         |   /-E
 #          \-|
 #             \-D
+
+# MIDPOINT ROOTING
+
+t = Tree()
+t.populate(15)
+print(t)
+#          /-aaaaaaaaaj
+#       /-|
+#      |   \-aaaaaaaaak
+#      |
+#    /-|      /-aaaaaaaaal
+#   |  |   /-|
+#   |  |  |   \-aaaaaaaaam
+#   |   \-|
+#   |     |   /-aaaaaaaaan
+#   |      \-|
+# --|         \-aaaaaaaaao
+#   |
+#   |      /-aaaaaaaaaa
+#   |   /-|
+#   |  |   \-aaaaaaaaab
+#   |  |
+#   |  |      /-aaaaaaaaac
+#    \-|   /-|
+#      |  |  |   /-aaaaaaaaad
+#      |  |   \-|
+#      |  |     |   /-aaaaaaaaae
+#      |  |      \-|
+#       \-|        |   /-aaaaaaaaaf
+#         |         \-|
+#         |            \-aaaaaaaaag
+#         |
+#         |   /-aaaaaaaaah
+#          \-|
+#             \-aaaaaaaaai
+
+# calculate the midpoint node
+midpoint_node = t.get_midpoint_outgroup()
+# set it as outgroup
+t.set_outgroup(midpoint_node)
+print(t)
+#          /-aaaaaaaaac
+#       /-|
+#      |  |   /-aaaaaaaaad
+#      |   \-|
+#      |     |   /-aaaaaaaaae
+#      |      \-|
+#    /-|        |   /-aaaaaaaaaf
+#   |  |         \-|
+#   |  |            \-aaaaaaaaag
+#   |  |
+#   |  |   /-aaaaaaaaah
+#   |   \-|
+# --|      \-aaaaaaaaai
+#   |
+#   |      /-aaaaaaaaaa
+#   |   /-|
+#   |  |   \-aaaaaaaaab
+#   |  |
+#    \-|      /-aaaaaaaaaj
+#      |   /-|
+#      |  |   \-aaaaaaaaak
+#      |  |
+#       \-|      /-aaaaaaaaal
+#         |   /-|
+#         |  |   \-aaaaaaaaam
+#          \-|
+#            |   /-aaaaaaaaan
+#             \-|
+#                \-aaaaaaaaao
+
