@@ -44,5 +44,9 @@ for n in t.traverse():
 # then modify the root node only
 t.img_style["size"] = 30 # t is the tree, but by definition also the root node
 t.img_style["fgcolor"] = "blue"
+# so, you can adjust the style of a particular node by
+# 1. defining a style in a NodeStyle oject and then apply it via n.set_style(nstyle)
+# 2. define a style property directoy via n.img_style["property"] = "value"
 
 t.render("17b_my_independent_nodes_tree.png", tree_style=ts)
+
