@@ -1,4 +1,5 @@
 # ignore images
-*.png
+*.png 
+*.pdf
 
 .vscode
