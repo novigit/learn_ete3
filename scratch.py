@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
 from ete3 import Tree, TreeStyle, TextFace, NodeStyle, AttrFace, faces
+from ete3 import SVG_COLORS
 import csv
 import argparse
 import re
+import sys
+
 
 # make command line interface
 parser = argparse.ArgumentParser(
@@ -14,14 +17,14 @@ parser.add_argument(
     "-t", 
     dest="tree_file",
     metavar="TREE_FILE",
-    required=True, 
+    # required=True, 
     help="Tree in Newick format"
 )
 parser.add_argument(
     "-m", 
     dest="mapping_file", 
     metavar="MAPPING_FILE",
-    required=True, 
+    # required=True, 
     help="Tab separated mapping file. "
          "TaxonPattern \\t Clade \\t Color. "
 )
@@ -29,12 +32,26 @@ parser.add_argument(
     "-o",
     dest="outfile",
     metavar="OUTFILE",
-    required=True,
+    # required=True,
     help="Name of the outfile. "
          "Extension determines format. "
          "For example file.pdf will output PDF format"
 )
+parser.add_argument(
+    "--colors",
+    dest="colors",
+    required=False,
+    action="store_true",
+    help="Print all colors available in ETE3"
+)
 args = parser.parse_args()
+
+
+# print all available colors if requested
+if args.colors:
+    print("Colors you can use in your mapping file:\n")
+    print( ', '.join(sorted( SVG_COLORS )) )
+    sys.exit()
 
 
 # load tree
@@ -93,7 +110,7 @@ def leaf_font(node):
         color = map.get(node.name, ['undefined_clade', 'black'])[1]
 
         # remove underscores from leaf name
-        # node.name = node.name.replace("_", " ")
+        node.name = node.name.replace("_", " ")
 
         # color leaf name
         leaf_face = AttrFace(attr="name", fgcolor=color, fsize=2)
@@ -102,5 +119,5 @@ def leaf_font(node):
         )
 
 
-# t.render("scratch.pdf", tree_style=ts, layout=leaf_font, w=210, units="mm")
+# render tree
 t.render(args.outfile, tree_style=ts, layout=leaf_font)
