@@ -44,13 +44,21 @@ parser.add_argument(
     action="store_true",
     help="Print all colors available in ETE3"
 )
+parser.add_argument(
+    "--no-root",
+    dest="noroot",
+    required=False,
+    action="store_true",
+    help="Do not root the tree"
+)
 args = parser.parse_args()
 
 
 # print all available colors if requested
 if args.colors:
-    print("Colors you can use in your mapping file:\n")
+    print("\nColors you can use in your mapping file:\n")
     print( ', '.join(sorted( SVG_COLORS )) )
+    print("\nGoogle SVG colors to check their actual colors")
     sys.exit()
 
 
@@ -71,15 +79,16 @@ with open(args.mapping_file, "r") as f:
 
 
 # root tree
-tree_outgroup_taxa = [taxon for taxon in map.keys() if map[taxon][0] == "Outgroup"]
-outgroup_lca = t.get_common_ancestor(tree_outgroup_taxa)
-t.set_outgroup(outgroup_lca)
+if not args.noroot:
+    tree_outgroup_taxa = [taxon for taxon in map.keys() if map[taxon][0] == "Outgroup"]
+    outgroup_lca = t.get_common_ancestor(tree_outgroup_taxa)
+    t.set_outgroup(outgroup_lca)
 
 
 # set TreeStyle
 ts = TreeStyle()
 ts.show_leaf_name = False
-ts.show_branch_support = False
+ts.show_branch_support = True
 ts.scale_length = 0.3
 # ts.title.add_face(TextFace("Tree Title", fsize=20), column=0)
 
@@ -113,11 +122,11 @@ def leaf_font(node):
         node.name = node.name.replace("_", " ")
 
         # color leaf name
-        leaf_face = AttrFace(attr="name", fgcolor=color, fsize=2)
+        leaf_face = AttrFace(attr="name", fgcolor=color)
         faces.add_face_to_node(
             face=leaf_face, node=node, column=1, position="branch-right"
         )
 
 
 # render tree
-t.render(args.outfile, tree_style=ts, layout=leaf_font)
+t.render(args.outfile, tree_style=ts, layout=leaf_font, dpi=300)
