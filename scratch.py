@@ -81,6 +81,14 @@ with open(args.mapping_file, "r") as f:
 # root tree
 if not args.noroot:
     tree_outgroup_taxa = [taxon for taxon in map.keys() if map[taxon][0] == "Outgroup"]
+
+    # in case the provided tree has the root already within the outgroup,
+    # root outside the outgroup first
+    tree_ingroup_taxa =  [taxon for taxon in map.keys() if map[taxon][0] != "Outgroup"]
+    random_ingroup_taxon = tree_ingroup_taxa[0]
+    t.set_outgroup(random_ingroup_taxon)
+
+    # then root with the outgroup
     outgroup_lca = t.get_common_ancestor(tree_outgroup_taxa)
     t.set_outgroup(outgroup_lca)
 
@@ -119,7 +127,7 @@ def leaf_font(node):
         color = map.get(node.name, ['undefined_clade', 'black'])[1]
 
         # remove underscores from leaf name
-        node.name = node.name.replace("_", " ")
+        # node.name = node.name.replace("_", " ")
 
         # color leaf name
         leaf_face = AttrFace(attr="name", fgcolor=color)
@@ -129,4 +137,4 @@ def leaf_font(node):
 
 
 # render tree
-t.render(args.outfile, tree_style=ts, layout=leaf_font, dpi=300)
+t.render(args.outfile, tree_style=ts, layout=leaf_font, dpi=300, h=280, units="mm")
